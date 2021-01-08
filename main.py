@@ -3,12 +3,20 @@ import os
 import requests
 import json
 import random
+import csv
 from replit import db
 
 
 client = discord.Client()
 
-curse = ["sad", "happy", "pro", "noob", "coding"]
+curse = []
+
+with open('censor/bad-words-en.csv', 'r') as f:
+  bad_word = csv.reader(f)
+  curse = curse.append(bad_word)
+
+print(curse)
+
 
 anti_curse = [
   "Abe tu hai noob!",
