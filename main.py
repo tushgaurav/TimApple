@@ -5,6 +5,7 @@ import json
 import random
 import csv
 from decouple import config
+#import sys
 
 TOKEN = config('TOKEN')
 
@@ -40,7 +41,7 @@ for i in load_words:
 anti_curse_en = [
     "Please mind your language.",
     "Don't use that language here in this server!",
-    "You could face temporary ban if you keep on using that language!"
+    "You could face temporary ban if you keep on using that language!",
     "Don't use foul language on this server!"
 ]
 
@@ -78,8 +79,14 @@ def evil_insult():
 
 @client.event
 async def on_ready():
-    print(
-        "Logged in as {0.user} /n Bot created by Tushar G. (github.com/tushgaurav)".format(client))
+    branding = """
+╔╦╗┬┌┬┐  ╔═╗┌─┐┌─┐┬  ┌─┐
+ ║ ││││  ╠═╣├─┘├─┘│  ├┤ 
+ ╩ ┴┴ ┴  ╩ ╩┴  ┴  ┴─┘└─┘                               
+               """
+    print(branding)
+    print("Logged in as {0.user}".format(client))
+    print("Bot created by Tushar G. (github.com/tushgaurav)")
 
 
 @client.event
@@ -91,7 +98,7 @@ async def on_message(message):
 
 # bot functions
     if msg.startswith('$hello'):
-        await message.channel.send('Hello!')
+        await message.channel.send('Nameste!')
 
     if msg.startswith('$gyan'):
         quote = get_quote()
@@ -104,9 +111,7 @@ async def on_message(message):
 # anti curse features
     if any(word in msg for word in curse_en):
         await message.channel.send(random.choice(anti_curse_en))
-
-    if any(word in msg for word in curse_hi):
+    elif any(word in msg for word in curse_hi):
         await message.channel.send(random.choice(anti_curse_hi))
-
 
 client.run(TOKEN)
