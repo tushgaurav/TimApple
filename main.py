@@ -1,11 +1,10 @@
 import discord
-import os
 import requests
 import json
 import random
 import csv
 from decouple import config
-#import sys
+from keep_alive import keep_alive
 
 TOKEN = config('TOKEN')
 
@@ -72,6 +71,8 @@ def evil_insult():
     insult = json_data['insult']
     return(insult)
 
+
+
 ################
 # main bot code
 ################
@@ -114,4 +115,5 @@ async def on_message(message):
     elif any(word in msg for word in curse_hi):
         await message.channel.send(random.choice(anti_curse_hi))
 
+keep_alive()
 client.run(TOKEN)
