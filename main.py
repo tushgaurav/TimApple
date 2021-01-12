@@ -39,16 +39,21 @@ for i in load_words:
 # messages if curse words are used in the server
 anti_curse_en = [
     "Please mind your language.",
-    "Don't use that language here in this server!",
-    "You could face temporary ban if you keep on using that language!",
-    "Don't use foul language on this server!"
+    "Courage is fire, and bullying is smoke.",
+    "Not all forms of abuse leave bruises.",
+    "Don't use foul language on this server!",
+    "I would rather be a little nobody than to be an evil somebody.",
+    "If I were two-faced, would I be wearing this one?",
+    "The average dog is a nicer person than you!",
+    ""
 ]
 
 anti_curse_hi = [
     "मेरा मुंह मत खुलवाओ!",
     "में आजकल रंग बदलने में लोगों का मुकाबला नहीं कर पा रहा हूं!!",
     "तारीफों से भी जिंदा रह सकते हैं..",
-    "सूखे हुए पत्तों की तरह मत बनाओ अपनी जिंदगी!"
+    "सूखे हुए पत्तों की तरह मत बनाओ अपनी जिंदगी!",
+    "शरीफों की शराफत और हमारा,कमीनापन किसी को अच्छा, नहीं लगता!!"
 ]
 
 
@@ -71,6 +76,13 @@ def evil_insult():
     insult = json_data['insult']
     return(insult)
 
+
+def get_meme():
+    response = requests.get('https://alpha-meme-maker.herokuapp.com')
+    json_data = json.loads(response.text)
+    #api is limited in size and ony has 54 memes
+    meme = json_data['data'][random.randrange(1, 54)]['image'] 
+    return meme
 
 
 ################
@@ -96,10 +108,14 @@ async def on_message(message):
         return
 
     msg = message.content
+    author = str(message.author)
 
 # bot functions
     if msg.startswith('$hello'):
         await message.channel.send('Nameste!')
+
+    if msg.startswith('$introduce'):
+        await message.channel.send('I am you dad @' + author)
 
     if msg.startswith('$gyan'):
         quote = get_quote()
@@ -109,11 +125,37 @@ async def on_message(message):
         insult = evil_insult()
         await message.channel.send(insult)
 
+    if msg.startswith('$meme'):
+        meme = get_meme()
+        await message.channel.send("Here is a low effort meme for you-")
+        await message.channel.send(meme)
+
+
 # anti curse features
     if any(word in msg for word in curse_en):
         await message.channel.send(random.choice(anti_curse_en))
     elif any(word in msg for word in curse_hi):
         await message.channel.send(random.choice(anti_curse_hi))
+
+'''@client.command(name="com")
+async def _command(ctx):
+    global times_used
+    await ctx.send(f"y or n")
+
+    # This will make sure that the response will only be registered if the following
+    # conditions are met:
+    def check(msg):
+        return msg.author == ctx.author and msg.channel == ctx.channel and \
+        msg.content.lower() in ["y", "n"]
+
+    msg = await client.wait_for("message", check=check)
+    if msg.content.lower() == "y":
+        await ctx.send("You said yes!")
+    else:
+        await ctx.send("You said no!")
+
+    times_used = times_used + 1   
+    '''   
 
 keep_alive()
 client.run(TOKEN)
