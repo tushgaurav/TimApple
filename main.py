@@ -136,26 +136,7 @@ async def on_message(message):
         await message.channel.send(random.choice(anti_curse_en))
     elif any(word in msg for word in curse_hi):
         await message.channel.send(random.choice(anti_curse_hi))
-
-'''@client.command(name="com")
-async def _command(ctx):
-    global times_used
-    await ctx.send(f"y or n")
-
-    # This will make sure that the response will only be registered if the following
-    # conditions are met:
-    def check(msg):
-        return msg.author == ctx.author and msg.channel == ctx.channel and \
-        msg.content.lower() in ["y", "n"]
-
-    msg = await client.wait_for("message", check=check)
-    if msg.content.lower() == "y":
-        await ctx.send("You said yes!")
-    else:
-        await ctx.send("You said no!")
-
-    times_used = times_used + 1   
-    '''   
+ 
 
 keep_alive()
 client.run(TOKEN)
