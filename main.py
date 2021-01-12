@@ -115,7 +115,7 @@ async def on_message(message):
         await message.channel.send('Nameste!')
 
     if msg.startswith('$introduce'):
-        await message.channel.send('I am you dad @' + author)
+        await message.channel.send('I am your dad @' + author)
 
     if msg.startswith('$gyan'):
         quote = get_quote()
