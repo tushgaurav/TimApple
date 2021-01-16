@@ -4,6 +4,7 @@ import json
 import random
 import csv
 from decouple import config
+#from discord.ext import commands
 from keep_alive import keep_alive
 
 TOKEN = config('TOKEN')
@@ -108,14 +109,14 @@ async def on_message(message):
         return
 
     msg = message.content
-    author = str(message.author)
+    author = (message.author)
 
 # bot functions
     if msg.startswith('$hello'):
         await message.channel.send('Nameste!')
 
     if msg.startswith('$introduce'):
-        await message.channel.send('I am your dad @' + author)
+        await message.channel.send('I am your dad ' + author.mention)
 
     if msg.startswith('$gyan'):
         quote = get_quote()
@@ -126,10 +127,7 @@ async def on_message(message):
         await message.channel.send(insult)
 
     if msg.startswith('$meme'):
-        meme = get_meme()
-        await message.channel.send("Here is a low effort meme for you-")
-        await message.channel.send(meme)
-
+        await message.channel.send("You are a living meme.")
 
 # anti curse features
     if any(word in msg for word in curse_en):
