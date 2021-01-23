@@ -54,7 +54,8 @@ anti_curse_hi = [
     "में आजकल रंग बदलने में लोगों का मुकाबला नहीं कर पा रहा हूं!!",
     "तारीफों से भी जिंदा रह सकते हैं..",
     "सूखे हुए पत्तों की तरह मत बनाओ अपनी जिंदगी!",
-    "शरीफों की शराफत और हमारा,कमीनापन किसी को अच्छा, नहीं लगता!!"
+    "शरीफों की शराफत और हमारा,कमीनापन किसी को अच्छा, नहीं लगता!!",
+    "lol XD mai kaise maan lu?"
 ]
 
 
@@ -101,6 +102,7 @@ async def on_ready():
     print(branding)
     print("Logged in as {0.user}".format(client))
     print("Bot created by Tushar G. (github.com/tushgaurav)")
+    await client.change_presence(activity=discord.Game('iPhone 13 Pro Max'))
 
 
 @client.event
