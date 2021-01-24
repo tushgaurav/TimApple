@@ -104,8 +104,7 @@ async def on_ready():
     print("Logged in as {0.user}".format(client))
     print("Bot created by Tushar G. (github.com/tushgaurav)")
     await client.change_presence(activity=discord.Game('iPhone 13 Pro Max'))
-
-
+    
 
 @client.event
 async def on_message(message):
