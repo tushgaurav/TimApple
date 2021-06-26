@@ -103,7 +103,7 @@ async def on_ready():
     print(branding)
     print("Logged in as {0.user}".format(client))
     print("Bot created by Tushar G. (github.com/tushgaurav)")
-    await client.change_presence(activity=discord.Game('iPhone 13 Pro Max'))
+    await client.change_presence(activity=discord.Game('suing Epic Games'))
     
 
 @client.event
@@ -142,7 +142,21 @@ async def on_message(message):
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='to sad noises!'))
         await message.channel.send("I am now listening to sad noises") 
         time.sleep(10)
-        await client.change_presence(activity=previous_status)  
+        await client.change_presence(activity=previous_status)
+
+    if msg.startswith('$help'):
+      await message.channel.send(
+        '''
+        **Tim Apple v0.2 Beta Waifu Inc.**
+        Bot Commands:
+        $hello - Say Hi to the bot
+        $introduce - Bot will introduce
+        $gyan - Bot will send a Motivational quote
+        $roast - Bot will roast you
+        $meme - Bot will send a meme (Under Development)
+        $ask - You can ask any question after this command like `$ask What is Rick Rolling`
+        $listen - It will do something`
+      ''')      
 
     #if msg.startswith('$time'):    
 
