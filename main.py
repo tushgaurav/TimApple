@@ -10,6 +10,8 @@ from keep_alive import keep_alive
 
 TOKEN = config('TOKEN') #discord token from env
 app_id = config('APP_ID') #wolfram alpha app id from env
+rapidapi_key = config('RAPIDAPI-KEY')
+
 wolfram = wolframalpha.Client(app_id)
 
 client = discord.Client()
@@ -64,7 +66,7 @@ anti_curse_hi = [
 
 
 ################
-# api
+# apis
 ################
 
 def get_quote():
@@ -87,6 +89,21 @@ def ask_que(question):
     answer = next(res.results).text
     return answer
 
+def dad_jokes():
+    url = "https://dad-jokes.p.rapidapi.com/random/joke"
+    headers = {
+      'x-rapidapi-key': rapidapi_key,
+      'x-rapidapi-host': "dad-jokes.p.rapidapi.com"
+    }
+
+    response = requests.request("GET", url, headers=headers)
+    json_data = json.loads(response.text)
+
+    joke = {}
+    joke['que'] = json_data['body'][0]['setup']
+    joke['ans'] = json_data['body'][0]['punchline']
+
+    return joke
 
 ################
 # main bot code
@@ -103,7 +120,7 @@ async def on_ready():
     print(branding)
     print("Logged in as {0.user}".format(client))
     print("Bot created by Tushar G. (github.com/tushgaurav)")
-    await client.change_presence(activity=discord.Game('iPhone 13 Pro Max'))
+    await client.change_presence(activity=discord.Game('$help'))
     
 
 @client.event
@@ -142,7 +159,28 @@ async def on_message(message):
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='to sad noises!'))
         await message.channel.send("I am now listening to sad noises") 
         time.sleep(10)
-        await client.change_presence(activity=previous_status)  
+        await client.change_presence(activity=previous_status)
+
+    if msg.startswith('$dadjoke'):
+        dadjoke = dad_jokes()
+        await message.channel.send(dadjoke['que'])
+        time.sleep(5)
+        await message.channel.send(dadjoke['ans'])
+
+    if msg.startswith('$help'):
+        await message.channel.send(
+        '''
+        **Tim Apple v0.2 Beta** ***Waifu Inc.***
+        Bot Commands:
+        $hello - Say Hi to the bot
+        $introduce - Bot will introduce
+        $gyan - Bot will send a Motivational quote
+        $roast - Bot will roast you
+        $meme - Bot will send a meme (Under Development)
+        $dadjoke - Bot will send a dad joke
+        $ask - You can ask any question after this command like `$ask What is Rick Rolling`
+        $listen - It will do something`
+      ''')      
 
     #if msg.startswith('$time'):    
 
