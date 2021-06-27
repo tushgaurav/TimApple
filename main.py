@@ -1,7 +1,6 @@
 import discord
 import requests
 import json
-import time
 import random
 import csv
 import wolframalpha
