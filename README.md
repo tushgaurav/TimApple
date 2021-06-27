@@ -1,4 +1,4 @@
-# Welcome to Tim Apple! - A Fun Discord Bot
+# Welcome to [Tim Apple!](https://linktr.ee/TimApple) - A Fun Discord Bot
 
 ## Hi! I'm your friendly Discord bot proudly called as Tim Apple. I can tell when any one is abusing or using bad words, I have also many functionalities such as bot not limited to:
 
