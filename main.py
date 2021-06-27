@@ -186,8 +186,8 @@ async def on_message(message):
         $certificate - Will award you with a certificate of achievement
       ''')      
 
-    if msg.startswith('$invite'):
-        await message.change.send()    
+    #if msg.startswith('$invite'):
+    #    await message.change.send()    
 
     if msg.startswith('$certificate'):
         text = str(message.author)
