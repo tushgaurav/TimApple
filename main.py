@@ -7,6 +7,7 @@ import csv
 import wolframalpha
 from decouple import config
 from keep_alive import keep_alive
+from image_process import Certificate
 
 TOKEN = config('TOKEN') #discord token from env
 app_id = config('APP_ID') #wolfram alpha app id from env
@@ -148,7 +149,7 @@ async def on_message(message):
         await message.channel.send(insult)
 
     if msg.startswith('$meme'):
-        await message.channel.send("You are a living meme.")
+        await message.channel.send("You are a living meme " + author.mention)
 
     if msg.startswith('$ask'):
         question = msg[5:]
@@ -168,6 +169,8 @@ async def on_message(message):
         await message.channel.send(dadjoke['ans'])
 
     if msg.startswith('$help'):
+        await message.channel.send(file=discord.File('./images/TimApple.jpg'))
+
         await message.channel.send(
         '''
         **Tim Apple v0.2 Beta** ***Waifu Inc.***
@@ -179,10 +182,17 @@ async def on_message(message):
         $meme - Bot will send a meme (Under Development)
         $dadjoke - Bot will send a dad joke
         $ask - You can ask any question after this command like `$ask What is Rick Rolling`
-        $listen - It will do something`
+        $listen - It will do something
+        $certificate - Will award you with a certificate of achievement
       ''')      
 
-    #if msg.startswith('$time'):    
+    if msg.startswith('$invite'):
+        await message.change.send()    
+
+    if msg.startswith('$certificate'):
+        text = str(message.author)
+        Certificate(text)
+        await message.channel.send(file=discord.File('./images/output.png'))
 
 # anti curse features
     if any(word in msg for word in curse_en):
