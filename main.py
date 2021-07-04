@@ -1,12 +1,18 @@
 import discord
 import requests
 import json
+import time
 import random
 import csv
 import wolframalpha
 from decouple import config
 from keep_alive import keep_alive
 from image_process import Certificate
+from QuoteEng import qandaJokes, hindiJokes
+
+############
+# token and keys from Environment Variables
+############
 
 TOKEN = config('TOKEN') #discord token from env
 app_id = config('APP_ID') #wolfram alpha app id from env
@@ -132,7 +138,12 @@ async def on_message(message):
     author = (message.author)
     previous_status = client.guilds[0].get_member(client.user.id).activity
 
+
+#################
 # bot functions
+#################
+
+
     if msg.startswith('$hello'):
         await message.channel.send('Nameste!')
 
@@ -178,6 +189,8 @@ async def on_message(message):
         $introduce - Bot will introduce
         $gyan - Bot will send a Motivational quote
         $roast - Bot will roast you
+        $hindi - Get a hinid joke
+        $joke - Get a joke in the form of a question and answer
         $meme - Bot will send a meme (Under Development)
         $dadjoke - Bot will send a dad joke
         $ask - You can ask any question after this command like `$ask What is Rick Rolling`
@@ -185,13 +198,22 @@ async def on_message(message):
         $certificate - Will award you with a certificate of achievement
       ''')      
 
-    #if msg.startswith('$invite'):
-    #    await message.change.send()    
+    if msg.startswith('$invite'):
+        await message.channel.send('https://linktr.ee/TimApple')    
 
     if msg.startswith('$certificate'):
         text = str(message.author)
         Certificate(text)
         await message.channel.send(file=discord.File('./images/output.png'))
+
+    if msg.startswith('$hindi'):
+        await message.channel.send(hindiJokes())
+
+    if msg.startswith('$joke'):
+        joke = qandaJokes()
+        await message.channel.send(joke[0])
+        time.sleep(3)
+        await message.channel.send(joke[1])
 
 # anti curse features
     if any(word in msg for word in curse_en):
