@@ -8,7 +8,7 @@ import wolframalpha
 from decouple import config
 from keep_alive import keep_alive
 from image_process import Certificate
-from QuoteEng import qandaJokes, hindiJokes
+from QuoteEng import qandaJokes, hindiJokes, salut
 
 ############
 # token and keys from Environment Variables
@@ -145,7 +145,8 @@ async def on_message(message):
 
 
     if msg.startswith('$hello'):
-        await message.channel.send('Nameste!')
+        text = salut()
+        await message.channel.send(f"{text[0]}, from {text[1]}")
 
     if msg.startswith('$introduce'):
         await message.channel.send('I am your dad ' + author.mention)
