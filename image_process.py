@@ -9,7 +9,7 @@ def Certificate(message):
     today = date.today()
     long_date = today.strftime("%B %d, %Y")
 
-   # random name generator
+   # fetch random names from the names.csv file
     with open('data/names.csv') as file:
         reader = csv.DictReader(file)
         namelist = list(reader)

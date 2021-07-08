@@ -20,10 +20,12 @@ rapidapi_key = config('RAPIDAPI-KEY')
 
 wolfram = wolframalpha.Client(app_id)
 
+# init discord client
 client = discord.Client()
 
 
 # list of curse words created using csv
+# TODO: move to new python file and import
 load_words = []
 curse_file = "censor/bad-words-en.csv"
 with open(curse_file, 'r') as word:
@@ -148,6 +150,7 @@ async def on_message(message):
         text = salut()
         await message.channel.send(f"{text[0]}, from {text[1]}")
 
+    # TODO: work on this function
     if msg.startswith('$introduce'):
         await message.channel.send('I am your dad ' + author.mention)
 
@@ -159,6 +162,7 @@ async def on_message(message):
         insult = evil_insult()
         await message.channel.send(insult)
 
+    # TODO: add meme functionality
     if msg.startswith('$meme'):
         await message.channel.send("You are a living meme " + author.mention)
 
@@ -199,6 +203,7 @@ async def on_message(message):
         $certificate - Will award you with a certificate of achievement
       ''')      
 
+    # sends a the bot website
     if msg.startswith('$invite'):
         await message.channel.send('https://linktr.ee/TimApple')    
 
@@ -207,22 +212,24 @@ async def on_message(message):
         Certificate(text)
         await message.channel.send(file=discord.File('./images/output.png'))
 
+    # send hindi jokes
     if msg.startswith('$hindi'):
         await message.channel.send(hindiJokes())
 
+    # send english jokes in the form of question and answers
     if msg.startswith('$joke'):
         joke = qandaJokes()
         await message.channel.send(joke[0])
         time.sleep(3)
         await message.channel.send(joke[1])
 
-# anti curse features
+# anti curse features, needs work to be done, false positives
     if any(word in msg for word in curse_en):
         await message.channel.send(random.choice(anti_curse_en))
     elif any(word in msg for word in curse_hi):
         await message.channel.send(random.choice(anti_curse_hi))
  
-
+# function to keep the bot online on replit.com (simple hacks)
 keep_alive()
 
 client.run(TOKEN)
