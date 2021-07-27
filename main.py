@@ -128,7 +128,7 @@ async def on_ready():
     print(branding)
     print("Logged in as {0.user}".format(client))
     print("Bot created by Tushar G. (github.com/tushgaurav)")
-    await client.change_presence(activity=discord.Game('$help'))
+    await client.change_presence(activity=discord.Game('$help | linktr.ee/TimApple'))
     
 
 @client.event
