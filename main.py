@@ -1,3 +1,5 @@
+# TimApple Bot beta Version
+
 import discord
 import requests
 import json

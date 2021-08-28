@@ -1,3 +1,5 @@
+# Image Processing Engine v1.0 beta
+
 from PIL import Image, ImageFont, ImageDraw
 from datetime import date
 import csv
