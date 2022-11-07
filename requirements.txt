@@ -1,0 +1,6 @@
+discord.py==2.0.1
+Flask==1.1.2
+Pillow==9.3.0
+python-decouple==3.6
+requests==2.26.0
+wolframalpha==4.1.1
